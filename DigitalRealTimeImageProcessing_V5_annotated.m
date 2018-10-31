@@ -480,22 +480,26 @@ for a=1:size(myFiles,1)
     %Detected wells: number of wells detected on 2nd to last frame
     %Positive wells: number of detected wells that cross threshold
     %Fast slope pos wells: number of positive wells that cross slope threshold
-
-    col_header={'Intensity_ttp','Intensity_hist', 'Intensity_slope_ttp', 'Intensity_slope_hist', 'slope_ttp', 'slope_hist','maxSlope', 'endIntensity', 'wellArea', '', ''};
-    col1 = cell(numWells, 1); col1(1:size(ttp_thresh_clean,1),1) = num2cell(ttp_thresh_clean);
-    col2 = cell(numWells, 1); col2(1:size(Intensity_Histogram,1),1) = num2cell(Intensity_Histogram);
-    col3 = cell(numWells, 1); col3(1:size(ttp_thresh_slope_clean,1),1) = num2cell(ttp_thresh_slope_clean);
-    col4 = cell(numWells, 1); col4(1:size(Intensity_Slope_Histogram,1),1) = num2cell(Intensity_Slope_Histogram);
-    col5 = cell(numWells, 1); col5(1:size(ttp_slopeOnly_clean,1),1) = num2cell(ttp_slopeOnly_clean);
-    col6 = cell(numWells, 1); col6(1:size(Slope_Histogram,1),1) = num2cell(Slope_Histogram);
+    cellSize = numImages;
+    if numWells > numImages
+        cellSize=numWells;
+    end
     
-    col7 = cell(numWells, 1); col7(1:size(fast_Slope,1),1) = num2cell(fast_Slope);
-    col8 = cell(numWells, 1); col8(1:size(endIntensity,1),1) = num2cell(endIntensity);
-    col9 = cell(numWells, 1); col9(1:size(wellArea,1),1) = num2cell(wellArea);
-    col10= cell(numWells, 1); col10(1:18,1) = {'Total wells'; 'Detected wells'; 'Intensity wells'; 'Intensity slope wells'; 'slope wells';...
+    col_header={'Intensity_ttp','Intensity_hist', 'Intensity_slope_ttp', 'Intensity_slope_hist', 'slope_ttp', 'slope_hist','maxSlope', 'endIntensity', 'wellArea', '', ''};
+    col1 = cell(cellSize, 1); col1(1:size(ttp_thresh_clean,1),1) = num2cell(ttp_thresh_clean);
+    col2 = cell(cellSize, 1); col2(1:size(Intensity_Histogram,1),1) = num2cell(Intensity_Histogram);
+    col3 = cell(cellSize, 1); col3(1:size(ttp_thresh_slope_clean,1),1) = num2cell(ttp_thresh_slope_clean);
+    col4 = cell(cellSize, 1); col4(1:size(Intensity_Slope_Histogram,1),1) = num2cell(Intensity_Slope_Histogram);
+    col5 = cell(cellSize, 1); col5(1:size(ttp_slopeOnly_clean,1),1) = num2cell(ttp_slopeOnly_clean);
+    col6 = cell(cellSize, 1); col6(1:size(Slope_Histogram,1),1) = num2cell(Slope_Histogram);
+    
+    col7 = cell(cellSize, 1); col7(1:size(fast_Slope,1),1) = num2cell(fast_Slope);
+    col8 = cell(cellSize, 1); col8(1:size(endIntensity,1),1) = num2cell(endIntensity);
+    col9 = cell(cellSize, 1); col9(1:size(wellArea,1),1) = num2cell(wellArea);
+    col10= cell(cellSize, 1); col10(1:18,1) = {'Total wells'; 'Detected wells'; 'Intensity wells'; 'Intensity slope wells'; 'slope wells';...
         ''; 'Settings'; 'frameAtTemp'; 'baselineStart'; 'baselineEnd'; 'areaLowBound'; 'areaHighBound';...
         'majorAxisLowBound'; 'majorAxisHighBound'; 'threshold'; 'GaussWindow'; 'maxSlope'; 'maxSlopeThreshold'};
-    col11 = cell(numWells, 1); col11(1:18,1) = num2cell([totalNumWells; numWells; size(ttp_thresh_clean,1); size(ttp_thresh_slope_clean,1); size(ttp_slopeOnly_clean,1);...
+    col11 = cell(cellSize, 1); col11(1:18,1) = num2cell([totalNumWells; cellSize; size(ttp_thresh_clean,1); size(ttp_thresh_slope_clean,1); size(ttp_slopeOnly_clean,1);...
         0; 0;          frameAtTemp; baselineStart; baselineEnd; areaBound(1); areaBound(2);
         majorAxisBound(1); majorAxisBound(2); threshold; gaussWinSize; maxSlope; maxSlopeThreshold]);
     col11(6:7,1)={''; ''};
